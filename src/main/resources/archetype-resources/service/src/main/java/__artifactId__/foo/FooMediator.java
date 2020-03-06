@@ -35,6 +35,7 @@ public class FooMediator implements Mediator<FooEntity, Foo> {
 		Foo foo = new Foo();
 		foo.id = entity.getId();
 		foo.name = entity.getName();
+		foo.version = entity.getVersion();
 
 		// check the typed value for one and many to one relationships
 		if ( entity.getAnother() == null ) {
@@ -64,6 +65,7 @@ public class FooMediator implements Mediator<FooEntity, Foo> {
 	public FooEntity toEntity( Foo binding, FooEntity entity ) {
 		entity.setId( binding.id );
 		entity.setName( binding.name );
+		// IMPORTANT: never update the entity version
 		if ( binding.another == null ) {
 			entity.setAnotherId( binding.anotherId );
 		} else {

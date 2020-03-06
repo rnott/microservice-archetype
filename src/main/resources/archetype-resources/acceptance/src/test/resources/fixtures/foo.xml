@@ -8,6 +8,7 @@
 		NAME="One"
 		CREATED="${symbol_dollar}{SYSTIMESTAMP}"
 		UPDATED="${symbol_dollar}{SYSTIMESTAMP}"
+		VERSION="1"
 	/>
 	<FOO
 		ID="2"
@@ -15,6 +16,7 @@
 		ANOTHER_ID="${symbol_dollar}{NULL}"
 		CREATED="${symbol_dollar}{SYSTIMESTAMP}"
 		UPDATED="${symbol_dollar}{SYSTIMESTAMP}"
+		VERSION="1"
 	/>
 	<FOO
 		ID="3"
@@ -22,6 +24,7 @@
 		ANOTHER_ID="2"
 		CREATED="${symbol_dollar}{SYSTIMESTAMP}"
 		UPDATED="${symbol_dollar}{SYSTIMESTAMP}"
+		VERSION="1"
 	/>
 	<BAR
 		ID="1"
@@ -29,6 +32,7 @@
 		FOO_ID="3"
 		CREATED="${symbol_dollar}{SYSTIMESTAMP}"
 		UPDATED="${symbol_dollar}{SYSTIMESTAMP}"
+		VERSION="1"
 	/>
 	<BAR
 		ID="2"
@@ -36,6 +40,7 @@
 		FOO_ID="3"
 		CREATED="${symbol_dollar}{SYSTIMESTAMP}"
 		UPDATED="${symbol_dollar}{SYSTIMESTAMP}"
+		VERSION="1"
 	/>
 	<BAR
 		ID="3"
@@ -43,6 +48,7 @@
 		FOO_ID="3"
 		CREATED="${symbol_dollar}{SYSTIMESTAMP}"
 		UPDATED="${symbol_dollar}{SYSTIMESTAMP}"
+		VERSION="1"
 	/>
 
 </dataset>

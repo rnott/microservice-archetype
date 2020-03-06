@@ -20,6 +20,7 @@
 package ${package}.service.foo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -76,6 +77,7 @@ public class FooResourceTest extends AbstractTest {
 		Foo value = response.readEntity( Foo.class );
 		assert value != null : "Value is NULL";
 		assert "1".equals( value.id ) : "Unexpected value: " + value.id;
+		verifyTimeLastModified( response );
 	}
 
 	@Test
@@ -100,6 +102,7 @@ public class FooResourceTest extends AbstractTest {
 		value.bar.forEach( b -> {
 			assert bars.contains( b.id ) : "Unexpected bar ID: " + b.id;
 		});
+		verifyTimeLastModified( response );
 	}
 
 	@Test
@@ -113,6 +116,7 @@ public class FooResourceTest extends AbstractTest {
 		assert response != null : "Response is NULL";
 		assert success( response )
 			: "Unexpected status code: " + response.getStatus() + " : " + response.readEntity( String.class ) ;
+		verifyTimeLastModified( response );
 	}
 
 	@Test
@@ -120,6 +124,7 @@ public class FooResourceTest extends AbstractTest {
 		Foo foo = new Foo();
 		foo.id = "1";
 		foo.name = "OnePrime";
+		foo.version = 1;
 		Response response = getBaseTarget()
 			.path( "1" )
 			.request( MediaType.APPLICATION_JSON )
@@ -127,5 +132,27 @@ public class FooResourceTest extends AbstractTest {
 		assert response != null : "Response is NULL";
 		assert success( response )
 			: "Unexpected status code: " + response.getStatus() + " : " + response.readEntity( String.class );
+		verifyTimeLastModified( response );
+	}
+
+	@Test
+	public void conflict() {
+		Foo foo = new Foo();
+		foo.id = "1";
+		foo.name = "OnePrime";
+		foo.version = 0;
+		Response response = getBaseTarget()
+			.path( "1" )
+			.request( MediaType.APPLICATION_JSON )
+			.put( Entity.entity( foo, MediaType.APPLICATION_JSON ) );
+		assert response != null : "Response is NULL";
+		assert response.getStatus() == 409
+			: "Unexpected status code: " + response.getStatus() + " : " + response.readEntity( String.class );
+	}
+
+	private void verifyTimeLastModified( Response response ) {
+		Date tlm = response.getLastModified();
+		assert tlm != null : "No last modified header";
+		assert tlm.before( new Date() ) : "Last modified is in the future";
 	}
 }

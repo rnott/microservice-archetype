@@ -28,5 +28,6 @@ public class Foo {
 	public String name;
 	public String anotherId;
 	public Foo another;
+	public long version;
 	public final Set<Bar> bar = new HashSet<>();
 }
